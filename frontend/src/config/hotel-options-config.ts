@@ -1,0 +1,56 @@
+// export const hotelTypes = [
+//   { name: "Budget", checked: false },
+//   { name: "Boutique", checked: false },
+//   { name: "Luxury", checked: false },
+//   { name: "Ski Resort", checked: false },
+//   { name: "Business", checked: false },
+//   { name: "Family", checked: false },
+//   { name: "Romantic", checked: false },
+//   { name: "Hiking Resort", checked: false },
+//   { name: "Cabin", checked: false },
+//   { name: "Beach Resort", checked: false },
+//   { name: "Golf Resort", checked: false },
+//   { name: "Motel", checked: false },
+//   { name: "All Inclusive", checked: false },
+//   { name: "Pet Friendly", checked: false },
+//   { name: "Self Catering", checked: false },
+// ];
+export const hotelTypes = [
+  "Budget",
+  "Boutique",
+  "Luxury",
+  "Ski Resort",
+  "Business",
+  "Family",
+  "Romantic",
+  "Hiking Resort",
+  "Cabin",
+  "Beach Resort",
+  "Golf Resort",
+  "Motel",
+  "All Inclusive",
+  "Pet Friendly",
+  "Self Catering",
+];
+
+// export const hotelFacilities = [
+//   { name: "Free WiFi", checked: false },
+//   { name: "Parking", checked: false },
+//   { name: "Airport Shuttle", checked: false },
+//   { name: "Family Rooms", checked: false },
+//   { name: "Non-Smoking Rooms", checked: false },
+//   { name: "Outdoor Pool", checked: false },
+//   { name: "Spa", checked: false },
+//   { name: "Fitness Center", checked: false },
+// ];
+
+export const hotelFacilities = [
+  "Free WiFi",
+  "Parking",
+  "Airport Shuttle",
+  "Family Rooms",
+  "Non-Smoking Rooms",
+  "Outdoor Pool",
+  "Spa",
+  "Fitness Center",
+];
