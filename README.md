@@ -40,9 +40,11 @@
 
     Cloudinary
 
-    Mongodb
+    bcryptjs
 
     Jsonwebtoken
+
+    Mongodb
 
     React-router & React-router-dom used for navigating the pages acrros the appliction by using these react api.
 
