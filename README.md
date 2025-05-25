@@ -24,7 +24,7 @@
 
        npm start
 
-4.  Techstack used for this api's are
+4.  Techstack used for this application to develop are
 
     React
     
