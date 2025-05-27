@@ -20,21 +20,21 @@ import { useQuery } from "@tanstack/react-query";
 import * as apiClient from "./api-client";
 import React from "react";
 
-const loadData = async (params: any): Promise<any> => {
-  const hotelId = params.hotelId;
-  console.log("in router....");
-  alert(hotelId);
-  const { data } = useQuery(
-    ["fetchHotelById", hotelId],
-    async () => await apiClient.fetchHotelById(hotelId!),
-    {
-      onSuccess: () => {
-        console.log("router data...", data);
-      },
-      enabled: !!hotelId,
-    }
-  );
-};
+// const loadData = async (params: any): Promise<any> => {
+//   const hotelId = params.hotelId;
+//   console.log("in router....");
+//   alert(hotelId);
+//   const { data } = useQuery(
+//     ["fetchHotelById", hotelId],
+//     async () => await apiClient.fetchHotelById(hotelId!),
+//     {
+//       onSuccess: () => {
+//         console.log("router data...", data);
+//       },
+//       enabled: !!hotelId,
+//     }
+//   );
+// };
 function App() {
   return (
     <Router>
@@ -98,7 +98,7 @@ function App() {
 
         <Route
           path="/edit-hotel/:hotelId"
-          loader={loadData}
+          // loader={loadData}
           element={
             <Layout>
               <EditHotel />
