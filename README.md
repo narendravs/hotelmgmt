@@ -1,5 +1,7 @@
 # hotelmgmt
+
 # backend
+
 # frontend
 
 1.  Installation
@@ -14,7 +16,7 @@
 
        npm install
 
-       npm start
+       npm run dev
 
     2. For frontend
 
@@ -22,17 +24,19 @@
 
        npm install
 
-       npm start
+       npm rn dev
 
 4.  Techstack used for this application to develop are
 
     React
-    
+
     React-hook-form
 
     Express
 
     Node
+
+    Typescript
 
     Redux
 
@@ -45,6 +49,8 @@
     Jsonwebtoken
 
     Mongodb
+
+    Vite
 
     React-router & React-router-dom used for navigating the pages acrros the appliction by using these react api.
 
@@ -59,7 +65,7 @@
     You can view the tickets booking onformation once you booked.
 
     Logout functionality on the navbar.
-     
+
     You can add hotel information or details of the hotel.
 
     You can search the by the hotel name or by city.
