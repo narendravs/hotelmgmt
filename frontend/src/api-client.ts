@@ -21,6 +21,10 @@ export const validateToken = async () => {
 };
 
 export const login = async (formData: SignInFormData) => {
+  //console.log("formData", formData);
+  if (!formData.email || !formData.password) {
+    throw new Error("Email and password are required");
+  }
   const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     credentials: "include",
