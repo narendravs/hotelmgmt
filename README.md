@@ -24,7 +24,7 @@
 
        npm install
 
-       npm rn dev
+       npm run dev
 
 4.  Techstack used for this application to develop are
 
