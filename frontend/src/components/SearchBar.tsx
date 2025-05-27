@@ -32,10 +32,10 @@ const SearchBar = () => {
         />
       </div>
       <div className="flex bg-white  flex-2 rounded-sm px-2 container">
-        <label className="flex items-center">
+        <label className="flex items-center text-gray-500 ">
           Adults:
           <input
-            className="w-full p-1 h-25 focus:outline-none font-bold no-scrollbar"
+            className="w-full p-1 h-8 focus:outline-none text-black  no-scrollbar"
             type="number"
             min={1}
             max={20}
@@ -45,10 +45,10 @@ const SearchBar = () => {
             }}
           />
         </label>
-        <label className="flex items-center">
+        <label className="flex items-center text-gray-500 ">
           Children:
           <input
-            className="w-full p-1 h-25 focus:outline-none font-bold no-scrollbar"
+            className="w-full p-1 h-8 focus:outline-none text-black  no-scrollbar"
             type="number"
             min={1}
             max={20}
