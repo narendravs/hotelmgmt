@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </SearchContextProvider>
       </AppContextProvider>
 
-      <ReactQueryDevtools initialIsOpen={true} buttonPosition={"top-left"} />
+      <ReactQueryDevtools initialIsOpen={true} position="top-left" />
     </QueryClientProvider>
   </React.StrictMode>
 );

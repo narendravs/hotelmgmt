@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --port 5174",
     "build": "tsc && vite build",
+    "start": "vite preview --port 4173",  
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -15,6 +16,7 @@
     "@tailwindcss/postcss": "^4.1.7",
     "@tailwindcss/vite": "^4.1.7",
     "@tanstack/react-query-devtools": "^4.36.1",
+    "@tanstack/react-router": "^1.142.13",
     "@vitejs/plugin-react": "^4.5.0",
     "cors": "^2.8.5",
     "react": "^18.2.0",

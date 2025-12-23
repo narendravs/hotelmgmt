@@ -4,7 +4,6 @@ import {
   HotelSearchResponse,
   HotelType,
   PaymentIntenResponse,
-  UserType,
 } from "../../backend/src/shared/types";
 import { BookingFormData } from "./forms/BookingForm/BookingForm";
 

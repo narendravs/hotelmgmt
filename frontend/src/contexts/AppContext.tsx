@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Dispatch } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import Toast from "../components/Toast";
 

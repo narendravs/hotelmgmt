@@ -16,25 +16,7 @@ import Search from "./pages/Search.tsx";
 import EditHotel from "./pages/EditHotel.tsx";
 import MyHotels from "./pages/MyHotels.tsx";
 import MyBookings from "./pages/MyBookings.tsx";
-import { useQuery } from "@tanstack/react-query";
-import * as apiClient from "./api-client";
-import React from "react";
 
-// const loadData = async (params: any): Promise<any> => {
-//   const hotelId = params.hotelId;
-//   console.log("in router....");
-//   alert(hotelId);
-//   const { data } = useQuery(
-//     ["fetchHotelById", hotelId],
-//     async () => await apiClient.fetchHotelById(hotelId!),
-//     {
-//       onSuccess: () => {
-//         console.log("router data...", data);
-//       },
-//       enabled: !!hotelId,
-//     }
-//   );
-// };
 function App() {
   return (
     <Router>

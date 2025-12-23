@@ -4,6 +4,8 @@ import Hotel from "../models/hotels";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
 import { HotelType } from "../shared/types";
+import dotenv from "dotenv";
+dotenv.config();
 
 const cloudinary = require("cloudinary").v2;
 
@@ -78,6 +80,7 @@ router.post(
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const hotels = await Hotel.find({ userId: req.userId });
+    //console.log("hotels...", hotels);
     res.json(hotels);
   } catch (error) {
     res.status(500).json({ message: "Error fetching hotels" });
@@ -140,9 +143,9 @@ router.put(
 
 async function uploadImages(imageFiles: Express.Multer.File[]) {
   cloudinary.config({
-    cloud_name: "dcd41ekwu",
-    api_key: "947198711632983",
-    api_secret: "C7ltooqxJYjmuQFB0kYGJVjTi3c",
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
   });
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64");

@@ -2,10 +2,10 @@ import express, { Request, Response } from "express";
 import Hotel from "../models/hotels";
 import verifyToken from "../middleware/auth";
 import { BookingType, HotelSearchResponse } from "../shared/types";
-const stripe = require("stripe")(
-  "sk_test_51PpPmBP2WCmIMktqvXGUdLPlcTTPhjzXj0JfBq5sYnxeiR6iiqwcD5AI92KVkflw2V6Du0cjDKyAS743FBquUIFa00MxdRWMoL"
-);
+import dotenv from "dotenv";
+dotenv.config();
 
+const stripe = require("stripe")(process.env.STRIPE_PUB_KEY as string);
 const router = express.Router();
 
 router.post(

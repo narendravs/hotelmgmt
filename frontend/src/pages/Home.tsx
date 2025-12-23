@@ -17,15 +17,15 @@ const Home = () => {
       <h2 className="text-3xl font-bold">Latest Destinations</h2>
       <p>Most recent destination added by our hosts</p>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-        {topRowHotels.map((hotel) => (
+        {topRowHotels.map((hotel: any) => (
           <LatestDestinationCard hotel={hotel} />
         ))}
       </div>
-      <div className="grid md:grid-cols-3 gap-4">
-        {bottomRowHotels.map((hotel) => (
+      {/* <div className="grid md:grid-cols-3 gap-4">
+        {bottomRowHotels.map((hotel: any) => (
           <LatestDestinationCard hotel={hotel} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

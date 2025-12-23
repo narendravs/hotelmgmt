@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx" /* THIS FIXES THE ERROR */,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "composite": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "../backend/src/shared"
+  ], // Add this line to allow access to shared types
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

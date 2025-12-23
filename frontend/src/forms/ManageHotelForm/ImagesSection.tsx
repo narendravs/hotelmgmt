@@ -34,6 +34,7 @@ const ImagesSection = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     imageUrl: string
   ) => {
+    event.preventDefault();
     setValue(
       "imageUrls",
       existingImageUrls.filter((url) => url !== imageUrl)

@@ -11,7 +11,10 @@ import bookingRoutes from "./src/routes/my-bookings";
 import myHotelRoutes from "./src/routes/my-hotels";
 import userRoutes from "./src/routes/users";
 import jwt from "jsonwebtoken";
-const bodyParser = require("body-parser");
+import dotenv from "dotenv";
+dotenv.config();
+//const bodyParser = require("body-parser");
+import bodyParser from "body-parser";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -28,9 +31,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5174", "http://localhost:4173"],
+//     credentials: true,
+//   })
+// );
+const whitelist = process.env.FRONTEND_URLS?.split(",") || [];
+
 app.use(
   cors({
-    origin: ["http://localhost:5174"],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );

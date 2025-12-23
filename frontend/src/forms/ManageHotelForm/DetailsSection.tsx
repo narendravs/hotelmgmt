@@ -18,6 +18,7 @@ const DetailsSection = () => {
     register,
     formState: { errors },
     setValue,
+    watch,
   } = useFormContext<HotelFormData>();
 
   const queryClient = useQueryClient();
@@ -45,15 +46,15 @@ const DetailsSection = () => {
       refetchOnWindowFocus: true,
     }
   );
-  if (isLoading) return <p>Loading...</p>;
-  if (isFetching) return <p>Fetching...</p>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (isFetching) return <p>Fetching...</p>;
 
-  // const name = watch("name");
-  // const city = watch("city");
-  // const country = watch("country");
-  // const description = watch("description");
-  // const starRating = watch("starRating");
-  // const pricePerNight = watch("pricePerNight");
+  const name = watch("name");
+  const city = watch("city");
+  const country = watch("country");
+  const description = watch("description");
+  const starRating = watch("starRating");
+  const pricePerNight = watch("pricePerNight");
   // useEffect(() => {
   //   const fetchHotelById = async () => {
   //     const response = await apiClient.fetchHotelById(hotelId);
@@ -71,7 +72,8 @@ const DetailsSection = () => {
   // }, [hotelId]);
 
   return (
-    <div className="flex flex-col gap-4" onClick={() => refetch()}>
+    // <div className="flex flex-col gap-4" onClick={() => refetch()}>
+    <div className="flex flex-col gap-4">
       {hotelId ? (
         <h1 className="text-3xl font-bold mb-3">Update Hotel</h1>
       ) : (
@@ -83,6 +85,7 @@ const DetailsSection = () => {
         <input
           type="text"
           className="border rounded  py-1 px-2 font-normal w-full"
+          value={name}
           {...register("name", { required: "This field is required" })}
         ></input>
         {errors.name && (
@@ -95,6 +98,7 @@ const DetailsSection = () => {
           <input
             type="text"
             className="border rounded w-full py-1 px-2 font-normal"
+            value={city}
             {...register("city", { required: "This field is required." })}
           ></input>
           {errors.city && (
@@ -106,6 +110,7 @@ const DetailsSection = () => {
           <input
             type="text"
             className="border rounded w-full py-1 px-2 font-normal"
+            value={country}
             {...register("country", { required: "This field is required" })}
           ></input>
           {errors.country && (
@@ -117,6 +122,7 @@ const DetailsSection = () => {
           <textarea
             rows={10}
             className="border rounded w-full py-1 px-2 font-normal"
+            value={description}
             {...register("description", { required: "This field is required" })}
           />
           {errors.description && (
@@ -129,6 +135,7 @@ const DetailsSection = () => {
             type="number"
             min={1}
             className="border rounded w-full py-1 px-2 font-normal"
+            value={pricePerNight}
             {...register("pricePerNight", {
               required: "This field is required",
             })}
@@ -142,6 +149,7 @@ const DetailsSection = () => {
           <select
             {...register("starRating", { required: "This field is required" })}
             className="border rounded w-full p-2 text-gray-700 font-normal"
+            value={starRating}
           >
             <option value="" className="text-sm font-bold">
               Select as Rating
