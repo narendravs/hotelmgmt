@@ -28,7 +28,6 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  let renderCount = 0;
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const stripePromise = loadStripe(STRIPE_PUB_KEY);
