@@ -108,17 +108,14 @@ router.put(
       const updatedHotel: HotelType = req.body;
       updatedHotel.lastUpdated = new Date();
 
-      console.log("updatedHotel..before....", updatedHotel);
       const files = req.files as Express.Multer.File[];
-      const updatedImageUrls = await uploadImages(files);
+      const newImageUrls = await uploadImages(files);
 
-      // hotel.imageUrls = [
-      //   ...updatedImageUrls,
-      //   ...(updatedHotel.imageUrls || []),
-      // ];
-      updatedHotel.imageUrls = updatedImageUrls;
-
-      console.log("updatedHotel...after...", updatedHotel);
+      // Merge existing URLs with newly uploaded ones
+      updatedHotel.imageUrls = [
+        ...(updatedHotel.imageUrls || []),
+        ...newImageUrls,
+      ];
 
       const hotel = await Hotel.findOneAndUpdate(
         {
@@ -132,11 +129,10 @@ router.put(
         return res.status(404).json({ message: "Hotel not found" });
       }
 
-      await hotel.save();
       res.status(201).json(hotel);
     } catch (error) {
-      console.log(error);
-      res.status(404).json({ message: "Something went wrong" });
+      console.error("Error updating hotel:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 );
