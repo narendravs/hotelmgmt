@@ -34,26 +34,32 @@ type Props = {
 const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
   const { hotelId } = useParams();
   const navigate = useNavigate();
-  const { showToast } = useAppContext();
-  const formMethods = useForm<HotelFormData>({ defaultValues: {} });
+  //const { showToast } = useAppContext();
+  const formMethods = useForm<HotelFormData>({ defaultValues: hotel });
   const {
     handleSubmit,
     reset,
     formState: { isSubmitSuccessful },
   } = formMethods;
 
+  // This Effect ensures the form populates when the hotel data arrives
   useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful, reset]);
+    if (hotel) {
+      reset(hotel);
+    }
+  }, [hotel, reset]);
+  // useEffect(() => {
+  //   reset();
+  // }, [isSubmitSuccessful, reset]);
 
-  const { mutate } = useMutation(apiClient.updateMyHotelById, {
-    onSuccess: () => {
-      showToast({ message: "Hotel Saved!", type: "SUCCESS" });
-    },
-    onError: () => {
-      showToast({ message: "Error Saving Hotel", type: "ERROR" });
-    },
-  });
+  // const { mutate } = useMutation(apiClient.updateMyHotelById, {
+  //   onSuccess: () => {
+  //     showToast({ message: "Hotel Saved!", type: "SUCCESS" });
+  //   },
+  //   onError: () => {
+  //     showToast({ message: "Error Saving Hotel", type: "ERROR" });
+  //   },
+  // });
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     const formData = new FormData();
@@ -85,11 +91,12 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append("imageFiles", imageFile);
     });
-    if (hotelId) {
-      mutate(formData);
-    } else {
-      onSave(formData);
-    }
+    // if (hotelId) {
+    //   mutate(formData);
+    // } else {
+    //   onSave(formData);
+    // }
+    onSave(formData);
     navigate("/add-hotel");
   });
 
