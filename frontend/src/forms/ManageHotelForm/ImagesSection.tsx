@@ -1,13 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import * as apiClient from "../../api-client";
-import React, { useState, useEffect } from "react";
 
 const ImagesSection = () => {
-  const { hotelId } = useParams();
-  // const [imageUrls, setimageUrls] = useState<string[] | undefined>();
   const {
     register,
     formState: { errors },
@@ -15,19 +9,6 @@ const ImagesSection = () => {
     setValue,
   } = useFormContext<HotelFormData>();
 
-  const { data } = useQuery(
-    ["fetchHotelById", hotelId],
-    async () => await apiClient.fetchHotelById(hotelId!),
-    {
-      onSuccess: () => {
-        if (data) {
-          setValue("imageUrls", data?.imageUrls);
-        }
-      },
-      enabled: !!hotelId,
-      staleTime: 50,
-    }
-  );
   const existingImageUrls = watch("imageUrls");
 
   const handleDelete = (
@@ -41,16 +22,6 @@ const ImagesSection = () => {
     );
   };
 
-  // useEffect(() => {
-  //   const handleChange = async () => {
-  //     if (hotelId) {
-  //       const response = await apiClient.fetchHotelById(hotelId);
-  //       setimageUrls(response.imageUrls);
-  //     }
-  //   };
-
-  //   handleChange();
-  // }, [hotelId]);
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Images</h2>
