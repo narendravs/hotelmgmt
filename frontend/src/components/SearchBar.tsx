@@ -1,7 +1,6 @@
-import React, { FormEventHandler, HtmlHTMLAttributes, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
 import { MdTravelExplore } from "react-icons/md";
 
 const SearchBar = () => {
