@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
 import { hotelFacilities } from "../../config/hotel-options-config";
