@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as apiClient from "../api-client";
 import LatestDestinationCard from "../components/LatestDestinationCard";
 
 const Home = () => {
-  const { data: hotels } = useQuery(["fetchQuery"], () =>
+  const { data: hotels, isLoading } = useQuery(["fetchQuery"], () =>
     apiClient.fetchHotels()
   );
+  if (isLoading) return <span>Loading destinations...</span>;
+  if (!hotels) return null;
 
-  const topRowHotels = hotels?.slice(2) || [];
-
-  const bottomRowHotels = hotels?.slice(2) || [];
+  // Split data logically
+  const topRowHotels = hotels.slice(0, 2);
+  const bottomRowHotels = hotels.slice(2);
 
   return (
     <div className="space-y-3">
@@ -18,14 +19,14 @@ const Home = () => {
       <p>Most recent destination added by our hosts</p>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
         {topRowHotels.map((hotel: any) => (
-          <LatestDestinationCard hotel={hotel} />
+          <LatestDestinationCard key={hotel._id} hotel={hotel} />
         ))}
       </div>
-      {/* <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         {bottomRowHotels.map((hotel: any) => (
-          <LatestDestinationCard hotel={hotel} />
+          <LatestDestinationCard key={hotel._id} hotel={hotel} />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
