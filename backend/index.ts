@@ -1,4 +1,3 @@
-import "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -13,7 +12,6 @@ import userRoutes from "./src/routes/users";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
-//const bodyParser = require("body-parser");
 import bodyParser from "body-parser";
 
 cloudinary.config({
@@ -29,14 +27,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(
-//   cors({
-//     origin: ["http://localhost:5174", "http://localhost:4173"],
-//     credentials: true,
-//   })
-// );
 const whitelist = process.env.FRONTEND_URLS?.split(",") || [];
 
 app.use(
@@ -78,20 +69,22 @@ app.use("/api/my-hotels", myHotelRoutes);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/my-bookings", bookingRoutes);
 
+//post request to test the server
 app.get("/test", (req: Request, res: Response) => {
-  res.send(path.join(__dirname, "../../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../../frontend/index.html"));
 });
 
+//post request to generate token
 app.get("/token", (req: Request, res: Response) => {
   const payload = { name: "narendra" };
   const secret = "narenn185";
   const token = jwt.sign(payload, secret, {
     expiresIn: "1h",
   });
-  //res.status(200).json({ token: token });
-  res.send(path.join(__dirname, "../../frontend/index.html"));
+  res.status(200).json({ token: token });
 });
 
+//post request to check the token
 app.get("/checkToken", (req: Request, res: Response) => {
   const token = req.headers["authorization"]?.split(" ")[1] || "";
   console.log(token);
