@@ -77,9 +77,9 @@ router.post(
   }
 );
 
-router.get("/", verifyToken, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const hotels = await Hotel.find({ userId: req.userId });
+    const hotels = await Hotel.find();
     //console.log("hotels...", hotels);
     res.json(hotels);
   } catch (error) {
@@ -92,6 +92,18 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
     const hotel = await Hotel.findOne({
       _id: id,
       userId: req.userId,
+    });
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
+
+router.get("/home/:id", async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findOne({
+      _id: id,
     });
     res.json(hotel);
   } catch (error) {
