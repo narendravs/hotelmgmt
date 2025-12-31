@@ -15,7 +15,7 @@ const Pagination = ({ page, pages, onChange }: Props) => {
           <li className={`px-2 py-1 ${page === number ? "bg-gray-200" : ""}`}>
             <button
               onClick={() => onChange(number)}
-              className="flex justify-center items-center "
+              className="flex justify-center items-center cursor-pointer"
             >
               {number}
             </button>
