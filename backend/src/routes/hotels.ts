@@ -86,7 +86,6 @@ router.post(
       if (!hotel) {
         return res.status(400).json({ message: "hotel not found" });
       }
-      await hotel.save();
       res.status(200).send();
     } catch (error) {
       console.log(error);
@@ -148,11 +147,11 @@ const constructSearchQuery = (queryParams: any) => {
     ];
   }
   if (queryParams.adultCount) {
-    constructedQuery.adultCount = { $gt: parseInt(queryParams.adultCount) };
+    constructedQuery.adultCount = { $gte: parseInt(queryParams.adultCount) };
   }
 
   if (queryParams.childCount) {
-    constructedQuery.childCount = { $gt: parseInt(queryParams.childCount) };
+    constructedQuery.childCount = { $gte: parseInt(queryParams.childCount) };
   }
   if (queryParams.facilities) {
     constructedQuery.facilities = {
