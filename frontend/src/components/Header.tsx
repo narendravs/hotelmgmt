@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
 import { useAppContext } from "../contexts/AppContext";
 const Header = () => {
-  //const [isLoggedIn, setstate] = useState(false);
   const { isLoggedIn } = useAppContext();
   return (
     <div className="bg-blue-800 py-6 mx-1 rounded-sm">
