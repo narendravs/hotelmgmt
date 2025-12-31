@@ -1,47 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MdTravelExplore } from "react-icons/md";
 import { useSearchContext } from "../contexts/SearchContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const search = useSearchContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Initialize with values from context or defaults
   const [destination, setDestination] = useState<string>(
     search.destination || ""
   );
-  const [adultCount, setAdultCount] = useState<number>(search.adultCount || 0);
-  const [childCount, setChildCount] = useState<number>(search.childCount || 0);
-  const [checkIn, setCheckIn] = useState<Date | null>(search?.checkIn || null);
+  const [adultCount, setAdultCount] = useState<number | string>(
+    search.adultCount || 1
+  );
+  const [childCount, setChildCount] = useState<number | string>(
+    search.childCount || 0
+  );
+  const [checkIn, setCheckIn] = useState<Date | null>(search.checkIn || null);
   const [checkOut, setCheckOut] = useState<Date | null>(
-    search?.checkOut || null
+    search.checkOut || null
   );
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      location.pathname === "/" ||
+      location.pathname === "/my-hotels" ||
+      location.pathname === "/my-bookings"
+    ) {
+      handleClear();
+    }
+  }, [location.pathname]);
+
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!checkIn || !checkOut) return;
     search.saveSearchValues(
       destination,
-      checkIn as Date,
-      checkOut as Date,
-      adultCount,
-      childCount
+      checkIn,
+      checkOut,
+      Number(adultCount) || 1,
+      Number(childCount) || 0
     );
     navigate("/search");
   };
 
   const handleClear = () => {
     setDestination("");
-    setAdultCount(0);
+    setAdultCount(1);
     setChildCount(0);
     setCheckIn(null);
     setCheckOut(null);
-    sessionStorage.clear();
+    search.saveSearchValues("", null as any, null as any, 1, 0);
   };
   return (
     <form
@@ -54,7 +71,7 @@ const SearchBar = () => {
           className="text-md w-full focus:outline-none text-gray-500"
           placeholder="Where are you going ?"
           value={destination}
-          onChange={(e) => setDestination(e.target.value as any)}
+          onChange={(e) => setDestination(e.target.value)}
         />
       </div>
       <div className="flex bg-white  flex-2 rounded-sm px-2 container">
@@ -67,7 +84,8 @@ const SearchBar = () => {
             max={20}
             value={adultCount}
             onChange={(e) => {
-              setAdultCount(e.target.value as any);
+              const val = parseInt(e.target.value);
+              setAdultCount(isNaN(val) ? "" : val);
             }}
           />
         </label>
@@ -76,11 +94,12 @@ const SearchBar = () => {
           <input
             className="w-full p-1 h-8 focus:outline-none no-scrollbar text-gray-500"
             type="number"
-            min={1}
+            min={0}
             max={20}
             value={childCount}
             onChange={(e) => {
-              setChildCount(e.target.value as any);
+              const val = parseInt(e.target.value);
+              setChildCount(isNaN(val) ? "" : val);
             }}
           />
         </label>
@@ -89,9 +108,7 @@ const SearchBar = () => {
       <div>
         <DatePicker
           selected={checkIn}
-          onChange={(date: Date) => {
-            setCheckIn(date as any);
-          }}
+          onChange={(date) => setCheckIn(date as Date | null)}
           selectsStart
           startDate={checkIn}
           endDate={checkOut}
@@ -105,7 +122,7 @@ const SearchBar = () => {
       <div className="z-100">
         <DatePicker
           selected={checkOut}
-          onChange={(date: Date) => setCheckOut(date as any)}
+          onChange={(date) => setCheckOut(date as Date | null)}
           selectsEnd
           startDate={checkIn}
           endDate={checkOut}
