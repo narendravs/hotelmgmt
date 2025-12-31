@@ -29,7 +29,11 @@ const SearchBar = () => {
     if (
       location.pathname === "/" ||
       location.pathname === "/my-hotels" ||
-      location.pathname === "/my-bookings"
+      location.pathname === "/my-bookings" ||
+      location.pathname === "/add-hotel" ||
+      location.pathname.startsWith("/details/") ||
+      location.pathname.startsWith("/edit-hotel/") ||
+      location.pathname.startsWith("/hotel/")
     ) {
       handleClear();
     }
