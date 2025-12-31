@@ -86,13 +86,21 @@ export const addMyHotel = async (hotelFormData: FormData) => {
 };
 
 export const fetchHotels = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
-    credentials: "include",
-  });
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`);
   if (!response.ok) {
     throw new Error("Error fetching hotels");
   }
 
+  return response.json();
+};
+
+export const fetchHomeHotelById = async (
+  hotelId: string
+): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/home/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching Hotels");
+  }
   return response.json();
 };
 
