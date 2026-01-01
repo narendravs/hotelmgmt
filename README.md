@@ -1,8 +1,8 @@
-# hotelmgmt
+## hotelmgmt
 
-# backend
+### backend
 
-# frontend
+### frontend
 
 1.  Installation
 

@@ -5,12 +5,14 @@ type SearchContext = {
   checkOut: Date;
   adultCount: number;
   childCount: number;
+  numberOfNights: number;
   saveSearchValues: (
     destination: string,
     checkIn: Date,
     checkOut: Date,
     adultCount: number,
-    childCount: number
+    childCount: number,
+    numberOfNights: number
   ) => void;
 };
 
@@ -20,6 +22,7 @@ const SearchContext = React.createContext<SearchContext>({
   checkOut: new Date(),
   adultCount: parseInt("0"),
   childCount: parseInt("0"),
+  numberOfNights: parseInt("0"),
   saveSearchValues: () => {},
 });
 
@@ -47,19 +50,23 @@ export const SearchContextProvider = ({
   const [childCount, setChildCount] = useState<number>(() =>
     parseInt(sessionStorage.getItem("childCount") || "0")
   );
-
+  const [numberOfNights, setNumberOfNights] = useState<number>(() =>
+    parseInt(sessionStorage.getItem("numberOfNights") || "0")
+  );
   const saveSearchValues = (
     destination: string,
     checkIn: Date,
     checkOut: Date,
     adultCount: number,
-    childCount: number
+    childCount: number,
+    numberOfNights: number
   ) => {
     setDestination(destination);
     setCheckIn(checkIn);
     setCheckOut(checkOut);
     setAdultCount(adultCount);
     setChildCount(childCount);
+    setNumberOfNights(numberOfNights);
   };
 
   return (
@@ -70,6 +77,7 @@ export const SearchContextProvider = ({
         checkOut,
         adultCount,
         childCount,
+        numberOfNights,
         saveSearchValues,
       }}
     >
