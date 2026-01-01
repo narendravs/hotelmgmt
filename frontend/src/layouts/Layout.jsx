@@ -9,7 +9,13 @@ const Layout = ({ children }) => {
       <Header />
       <Hero />
       <div className="container m-auto">
-        <SearchBar />
+        <SearchBar
+          key={
+            location.pathname.startsWith("/search")
+              ? "search-active"
+              : "search-reset"
+          }
+        />
       </div>
 
       <div className="container m-auto py-10 flex-1">{children}</div>
