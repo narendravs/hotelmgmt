@@ -5,8 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon",
-    "build": "npm install && npx tsc && echo 'Build Complete! Check the dist folder.'",
-    "start": "node ./dist/src/index.js",
+    "build": "npx tsc",
+    "start": "node ./dist/index.js",
+    "postinstall": "npm run build",
     "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon"
   },
   "author": "",
