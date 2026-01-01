@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
@@ -8,8 +7,8 @@ import { AiFillStar } from "react-icons/ai";
 const Details = () => {
   const { hotelId } = useParams();
 
-  const { data: hotel } = useQuery(["fetchHotelById"], () =>
-    apiClient.fetchHotelById(hotelId || "")
+  const { data: hotel } = useQuery(["fetchHomeHotelById"], () =>
+    apiClient.fetchHomeHotelById(hotelId || "")
   );
 
   if (!hotel) {
@@ -19,8 +18,8 @@ const Details = () => {
     <div className="space-y-6">
       <div>
         <span className="flex">
-          {Array.from({ length: hotel.starRating }).map(() => (
-            <AiFillStar className="fill-yellow-400" />
+          {Array.from({ length: hotel.starRating }).map((_, index) => (
+            <AiFillStar key={index} className="fill-yellow-400" />
           ))}
         </span>
         <h1 className="text-3xl font-bold">{hotel.name}</h1>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import DetailsSection from "./DetailsSection";
 import FacilitiesSection from "./FacilitiesSection";
@@ -6,9 +6,6 @@ import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
 import TypeSection from "./TypeSection";
 import { useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as apiClient from "../../api-client";
-import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 
 export type HotelFormData = {
@@ -34,26 +31,16 @@ type Props = {
 const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
   const { hotelId } = useParams();
   const navigate = useNavigate();
-  const { showToast } = useAppContext();
-  const formMethods = useForm<HotelFormData>({ defaultValues: {} });
-  const {
-    handleSubmit,
-    reset,
-    formState: { isSubmitSuccessful },
-  } = formMethods;
 
+  const formMethods = useForm<HotelFormData>({ defaultValues: hotel });
+  const { handleSubmit, reset } = formMethods;
+
+  // This Effect ensures the form populates when the hotel data arrives
   useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful, reset]);
-
-  const { mutate } = useMutation(apiClient.updateMyHotelById, {
-    onSuccess: () => {
-      showToast({ message: "Hotel Saved!", type: "SUCCESS" });
-    },
-    onError: () => {
-      showToast({ message: "Error Saving Hotel", type: "ERROR" });
-    },
-  });
+    if (hotel) {
+      reset(hotel);
+    }
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     const formData = new FormData();
@@ -85,11 +72,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append("imageFiles", imageFile);
     });
-    if (hotelId) {
-      mutate(formData);
-    } else {
-      onSave(formData);
-    }
+    onSave(formData);
     navigate("/add-hotel");
   });
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as apiClient from "../api-client";
 const MyBookings = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSearchContext } from "../contexts/SearchContext";
 import StarRatingFilter from "../components/StarRatingFilter";
 import HotelTypesFilter from "../components/HotelTypesFilter";
@@ -20,8 +20,8 @@ const Search = () => {
 
   const searchParams = {
     destination: search.destination,
-    checkIn: search.checkIn.toISOString(),
-    checkOut: search.checkOut.toISOString(),
+    checkIn: search?.checkIn?.toISOString(),
+    checkOut: search?.checkOut?.toISOString(),
     adultCount: search.adultCount.toString(),
     childCount: search.childCount.toString(),
     page: page.toString(),

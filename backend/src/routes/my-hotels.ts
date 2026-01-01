@@ -4,6 +4,8 @@ import Hotel from "../models/hotels";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
 import { HotelType } from "../shared/types";
+import dotenv from "dotenv";
+dotenv.config();
 
 const cloudinary = require("cloudinary").v2;
 
@@ -75,9 +77,10 @@ router.post(
   }
 );
 
-router.get("/", verifyToken, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const hotels = await Hotel.find({ userId: req.userId });
+    const hotels = await Hotel.find();
+    //console.log("hotels...", hotels);
     res.json(hotels);
   } catch (error) {
     res.status(500).json({ message: "Error fetching hotels" });
@@ -96,6 +99,18 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+router.get("/home/:id", async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findOne({
+      _id: id,
+    });
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
+
 router.put(
   "/:hotelId",
   verifyToken,
@@ -105,17 +120,14 @@ router.put(
       const updatedHotel: HotelType = req.body;
       updatedHotel.lastUpdated = new Date();
 
-      console.log("updatedHotel..before....", updatedHotel);
       const files = req.files as Express.Multer.File[];
-      const updatedImageUrls = await uploadImages(files);
+      const newImageUrls = await uploadImages(files);
 
-      // hotel.imageUrls = [
-      //   ...updatedImageUrls,
-      //   ...(updatedHotel.imageUrls || []),
-      // ];
-      updatedHotel.imageUrls = updatedImageUrls;
-
-      console.log("updatedHotel...after...", updatedHotel);
+      // Merge existing URLs with newly uploaded ones
+      updatedHotel.imageUrls = [
+        ...(updatedHotel.imageUrls || []),
+        ...newImageUrls,
+      ];
 
       const hotel = await Hotel.findOneAndUpdate(
         {
@@ -129,20 +141,19 @@ router.put(
         return res.status(404).json({ message: "Hotel not found" });
       }
 
-      await hotel.save();
       res.status(201).json(hotel);
     } catch (error) {
-      console.log(error);
-      res.status(404).json({ message: "Something went wrong" });
+      console.error("Error updating hotel:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 );
 
 async function uploadImages(imageFiles: Express.Multer.File[]) {
   cloudinary.config({
-    cloud_name: "dcd41ekwu",
-    api_key: "947198711632983",
-    api_secret: "C7ltooqxJYjmuQFB0kYGJVjTi3c",
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
   });
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64");

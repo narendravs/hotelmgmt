@@ -17,7 +17,9 @@ export const Route = createRootRoute({
         </li>
         <li>
           <Link to="/profile" activeProps={activeProps}>
-            {({ isActive }) => <>Profile {isActive && "~"}</>}
+            {({ isActive }: { isActive: Boolean }) => (
+              <>Profile {isActive && "~"}</>
+            )}
           </Link>
         </li>
       </ul>
