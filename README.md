@@ -1,5 +1,9 @@
 ## hotelmgmt
 
+### Access the project by using the following link
+
+    https://hotelmgmt-eta.vercel.app
+
 ### backend
 
 ### frontend
