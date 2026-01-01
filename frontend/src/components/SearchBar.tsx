@@ -26,15 +26,13 @@ const SearchBar = () => {
   );
 
   useEffect(() => {
-    if (
-      location.pathname === "/" ||
-      location.pathname === "/my-hotels" ||
-      location.pathname === "/my-bookings" ||
-      location.pathname === "/add-hotel" ||
-      location.pathname.startsWith("/details/") ||
-      location.pathname.startsWith("/edit-hotel/") ||
-      location.pathname.startsWith("/hotel/")
-    ) {
+    // Define where the search SHOULD persist
+    const PERSISTENT_ROUTES = ["/search"];
+    const shouldPersist = PERSISTENT_ROUTES.some((route) =>
+      location.pathname.startsWith(route)
+    );
+
+    if (!shouldPersist) {
       handleClear();
     }
   }, [location.pathname]);
