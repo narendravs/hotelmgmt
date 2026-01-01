@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src" /* Tells TS your code is in the src folder */,
+    "rootDir": "." /* Include current directory and subdirectories */,
     "target": "es2016",
     "module": "commonjs",
     "esModuleInterop": true,
@@ -10,6 +10,6 @@
     "skipLibCheck": true,
     "noEmit": false /* Forces the creation of the dist folder */
   },
-  "include": ["src/**/*"] /* Ensures all files in src are compiled */,
+  "include": ["**/*"] /* Include all files */,
   "exclude": ["node_modules"]
 }
