@@ -1,55 +1,16 @@
-import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { hotelTypes } from "../../config/hotel-options-config.ts";
 import { HotelFormData } from "./ManageHotelForm";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import * as apiClient from "../../api-client";
 
 const TypeSection = () => {
-  const { hotelId } = useParams();
-  //const [hotelType, sethotelTypes] = useState(hotelTypes);
-  //const [type, setType] = useState<string | undefined>();
-
-  // useEffect(() => {
-  //   const handleChange = async () => {
-  //     if (hotelId) {
-  //       const response = await apiClient.fetchHotelById(hotelId);
-  //       sethotelTypes(
-  //         hotelType.map((hotel) =>
-  //           hotel.name === response.type
-  //             ? { ...hotel, checked: !hotel.checked }
-  //             : hotel
-  //         )
-  //       );
-  //     }
-  //   };
-  //   handleChange();
-  // }, [hotelId]);
-
   const {
     register,
     watch,
-    setValue,
+
     formState: { errors },
   } = useFormContext<HotelFormData>();
 
   const typeWatch = watch("type");
-
-  const { data } = useQuery(
-    ["fetchHotelById", hotelId],
-    async () => await apiClient.fetchHotelById(hotelId!),
-    {
-      onSuccess: () => {
-        if (data) {
-          setValue("type", data.type);
-        }
-      },
-      enabled: !!hotelId,
-      staleTime: 50,
-    }
-  );
 
   return (
     <div>

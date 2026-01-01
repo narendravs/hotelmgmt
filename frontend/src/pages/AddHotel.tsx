@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from "react";
 import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 const AddHotel = () => {
   const { showToast } = useAppContext();
+  const queryClient = useQueryClient();
   const { mutate, isLoading, data } = useMutation(apiClient.addMyHotel, {
-    onSuccess: () => {
+    onSuccess: async () => {
+      //Invalidate the list of hotels so the new one appears in the UI
+      await queryClient.invalidateQueries(["fetchMyHotels"]);
       showToast({ message: "Hotel Saved!", type: "SUCCESS" });
     },
     onError: () => {

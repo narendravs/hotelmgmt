@@ -16,74 +16,18 @@ import Search from "./pages/Search.tsx";
 import EditHotel from "./pages/EditHotel.tsx";
 import MyHotels from "./pages/MyHotels.tsx";
 import MyBookings from "./pages/MyBookings.tsx";
-import { useQuery } from "@tanstack/react-query";
-import * as apiClient from "./api-client";
-import React from "react";
+import ProtectedRoute from "./auth/ProtectedRoute.tsx";
 
-// const loadData = async (params: any): Promise<any> => {
-//   const hotelId = params.hotelId;
-//   console.log("in router....");
-//   alert(hotelId);
-//   const { data } = useQuery(
-//     ["fetchHotelById", hotelId],
-//     async () => await apiClient.fetchHotelById(hotelId!),
-//     {
-//       onSuccess: () => {
-//         console.log("router data...", data);
-//       },
-//       enabled: !!hotelId,
-//     }
-//   );
-// };
 function App() {
   return (
     <Router>
       <Routes>
+        {/* --- PUBLIC ROUTES (Anyone can see) --- */}
         <Route
           path="/"
           element={
             <Layout>
               <Home />
-            </Layout>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Layout>
-              <Login />
-            </Layout>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <Layout>
-              <Register />
-            </Layout>
-          }
-        />
-        <Route
-          path="/add-hotel"
-          element={
-            <Layout>
-              <AddHotel />
-            </Layout>
-          }
-        />
-        <Route
-          path="/details/:hotelId"
-          element={
-            <Layout>
-              <Detail />
-            </Layout>
-          }
-        />
-        <Route
-          path="/hotel/:hotelId/bookings"
-          element={
-            <Layout>
-              <Booking />
             </Layout>
           }
         />
@@ -97,30 +41,83 @@ function App() {
         />
 
         <Route
-          path="/edit-hotel/:hotelId"
-          // loader={loadData}
+          path="/login"
           element={
             <Layout>
-              <EditHotel />
+              <Login />
             </Layout>
+          }
+        />
+        <Route
+          path="/details/:hotelId"
+          element={
+            <Layout>
+              <Detail />
+            </Layout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Layout>
+              <Register />
+            </Layout>
+          }
+        />
+
+        {/* --- PROTECTED ROUTES (Only if logged in) --- */}
+
+        <Route
+          path="/add-hotel"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AddHotel />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-hotel/:hotelId"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <EditHotel />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/my-hotels"
           element={
-            <Layout>
-              <MyHotels />
-            </Layout>
+            <ProtectedRoute>
+              <Layout>
+                <MyHotels />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/my-bookings"
           element={
-            <Layout>
-              <MyBookings />
-            </Layout>
+            <ProtectedRoute>
+              <Layout>
+                <MyBookings />
+              </Layout>
+            </ProtectedRoute>
           }
         />
+        <Route
+          path="/hotel/:hotelId/bookings"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Booking />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        {/* Default redirect for 404s */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

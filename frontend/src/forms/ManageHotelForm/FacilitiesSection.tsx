@@ -1,49 +1,12 @@
-import React, { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
 import { hotelFacilities } from "../../config/hotel-options-config";
-import { useParams } from "react-router-dom";
-import * as apiClient from "../../api-client";
-import { useQuery } from "@tanstack/react-query";
+
 const FacilitiesSection = () => {
-  const { hotelId } = useParams();
-  //const [hotelFacilitie, sethotelFacilities] = useState(hotelFacilities);
-
-  // useEffect(() => {
-  //   const handleChange = async () => {
-  //     if (hotelId) {
-  //       const response = await apiClient.fetchHotelById(hotelId);
-  //       sethotelFacilities(
-  //         hotelFacilities.map((hotelFacility) =>
-  //           response.facilities.includes(hotelFacility.name)
-  //             ? { ...hotelFacility, checked: true }
-  //             : hotelFacility
-  //         )
-  //       );
-  //     }
-  //   };
-
-  //   handleChange();
-  // }, [hotelId]);
-
   const {
     register,
-    watch,
-    setValue,
     formState: { errors },
   } = useFormContext<HotelFormData>();
-  const { data } = useQuery(
-    ["fetchHotelById", hotelId],
-    async () => await apiClient.fetchHotelById(hotelId!),
-    {
-      onSuccess: () => {
-        if (data) {
-          setValue("facilities", data?.facilities);
-        }
-      },
-      enabled: !!hotelId,
-    }
-  );
 
   return (
     <div>

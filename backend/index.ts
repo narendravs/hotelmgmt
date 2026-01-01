@@ -1,4 +1,3 @@
-import "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -11,7 +10,9 @@ import bookingRoutes from "./src/routes/my-bookings";
 import myHotelRoutes from "./src/routes/my-hotels";
 import userRoutes from "./src/routes/users";
 import jwt from "jsonwebtoken";
-const bodyParser = require("body-parser");
+import dotenv from "dotenv";
+dotenv.config();
+import bodyParser from "body-parser";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -26,11 +27,21 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+
+const whitelist = process.env.FRONTEND_URLS?.split(",") || [];
 
 app.use(
   cors({
-    origin: ["http://localhost:5174"],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -58,20 +69,22 @@ app.use("/api/my-hotels", myHotelRoutes);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/my-bookings", bookingRoutes);
 
+//post request to test the server
 app.get("/test", (req: Request, res: Response) => {
-  res.send(path.join(__dirname, "../../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../../frontend/index.html"));
 });
 
+//post request to generate token
 app.get("/token", (req: Request, res: Response) => {
   const payload = { name: "narendra" };
   const secret = "narenn185";
   const token = jwt.sign(payload, secret, {
     expiresIn: "1h",
   });
-  //res.status(200).json({ token: token });
-  res.send(path.join(__dirname, "../../frontend/index.html"));
+  res.status(200).json({ token: token });
 });
 
+//post request to check the token
 app.get("/checkToken", (req: Request, res: Response) => {
   const token = req.headers["authorization"]?.split(" ")[1] || "";
   console.log(token);

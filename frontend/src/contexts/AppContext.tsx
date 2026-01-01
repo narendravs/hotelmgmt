@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Dispatch } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import Toast from "../components/Toast";
 
@@ -28,7 +28,6 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  let renderCount = 0;
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const stripePromise = loadStripe(STRIPE_PUB_KEY);

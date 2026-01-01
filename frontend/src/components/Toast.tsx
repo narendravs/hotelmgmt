@@ -6,7 +6,7 @@ type ToastProps = {
   onClose: () => void;
 };
 
-const Toast = ({ message, type, onClose }) => {
+const Toast = ({ message, type, onClose }: ToastProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();

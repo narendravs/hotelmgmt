@@ -1,4 +1,3 @@
-import React from "react";
 import { HotelType } from "../../../backend/src/shared/types";
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -8,7 +7,7 @@ type Props = {
 };
 const SearchResultsCard = ({ hotel }: Props) => {
   return (
-    <div className=" grid grid-cols-1 lg:grid-clos-[2fr-3fr] border gap-8 border-slate-300 p-9 rounded-lg  w-full h-full">
+    <div className=" grid grid-cols-1  border gap-8 border-slate-300 p-9 rounded-lg  w-full h-full">
       <div className="w-full h-[300px]">
         <img
           src={hotel.imageUrls[0]}
