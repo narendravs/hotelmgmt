@@ -49,7 +49,8 @@ const SearchBar = () => {
       checkIn,
       checkOut,
       Number(adultCount) || 1,
-      Number(childCount) || 0
+      Number(childCount) || 0,
+      0
     );
     navigate("/search");
   };
@@ -60,7 +61,7 @@ const SearchBar = () => {
     setChildCount(0);
     setCheckIn(null);
     setCheckOut(null);
-    search.saveSearchValues("", null as any, null as any, 1, 0);
+    search.saveSearchValues("", null as any, null as any, 1, 0, 0);
   };
   return (
     <form
