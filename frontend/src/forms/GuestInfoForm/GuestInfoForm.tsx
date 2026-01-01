@@ -44,8 +44,16 @@ const GuestInfoForm = ({ pricePerNight, hotelId }: Props) => {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
-  var timeDiff = Math.abs(checkOut.getTime() - checkIn.getTime());
-  var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  // Calculate number of nights only if both dates are available and valid
+  const numberOfNights =
+    checkIn &&
+    checkOut &&
+    !isNaN(checkIn.getTime()) &&
+    !isNaN(checkOut.getTime())
+      ? Math.ceil(
+          Math.abs(checkOut.getTime() - checkIn.getTime()) / (1000 * 3600 * 24)
+        )
+      : 0;
 
   const onSubmit = (data: GuestInfoFormData) => {
     search.saveSearchValues(
