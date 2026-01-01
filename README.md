@@ -4,9 +4,7 @@
 
     https://hotelmgmt-eta.vercel.app
 
-### backend
-
-### frontend
+### backend & frontend, how to run the application locally
 
 1.  Installation
 
