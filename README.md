@@ -2,9 +2,9 @@
 
 ### Access the project by using the following link
 
-    https://hotelmgmt-eta.vercel.app
+https://hotelmgmt-eta.vercel.app
 
-### backend & frontend, how to run the application locally
+### backend & frontend, how to install and run the application locally
 
 1.  Installation
 
