@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
-
+app.set("trust proxy", 1);
 const whitelist = process.env.FRONTEND_URLS?.split(",") || [];
 
 app.use(
