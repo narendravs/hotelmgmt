@@ -4,9 +4,9 @@ import { useAppContext } from "../contexts/AppContext";
 const Header = () => {
   const { isLoggedIn } = useAppContext();
   return (
-    <div className="bg-blue-800 py-6 mx-1 rounded-sm">
-      <div className="container m-auto flex justify-between items-center">
-        <span className=" text-white text-xs font-bold tracking-tight hover:text-yellow-400">
+    <div className="bg-blue-800 py-6 rounded-sm px-2 mx-1">
+      <div className="flex justify-between items-center">
+        <span className="text-white text-xs font-bold tracking-tight hover:text-yellow-400">
           <Link to="/"> MernHolidays.com </Link>
         </span>
         {isLoggedIn ? (
