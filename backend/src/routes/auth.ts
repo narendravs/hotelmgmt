@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import verifyToken from "../middleware/auth";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
+import dotenv from 'dotenv';
+dotenv.config();
 const router = express.Router();
 router.post(
   "/login",
