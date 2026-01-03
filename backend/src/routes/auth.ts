@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import verifyToken from "../middleware/auth";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 router.post(
@@ -45,6 +45,7 @@ router.post(
       res.cookie("auth_cookie", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "none", // CRITICAL: Must be "none" for cross-site cookies
         maxAge: 86400000,
       });
 
