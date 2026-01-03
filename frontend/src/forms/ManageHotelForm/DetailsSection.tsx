@@ -11,7 +11,7 @@ const DetailsSection = () => {
   } = useFormContext<HotelFormData>();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="container mx-auto flex flex-col gap-4">
       {hotelId ? (
         <h1 className="text-3xl font-bold mb-3">Update Hotel</h1>
       ) : (
@@ -29,7 +29,7 @@ const DetailsSection = () => {
           <span className="text-red-500">{errors.name.message}</span>
         )}
       </label>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4">
         <label className="text-gray-700 text-sm font-bold flex-1">
           City
           <input
