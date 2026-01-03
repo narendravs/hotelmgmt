@@ -6,11 +6,14 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "noEmit": false /* Forces the creation of the dist folder */
+    "noEmit": false /* Forces the creation of the dist folder */,
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["**/*"] /* Include all files */,
   "exclude": ["node_modules"]
