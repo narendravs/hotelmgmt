@@ -27,6 +27,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
+app.set("trust proxy", 1);
 
 const whitelist = process.env.FRONTEND_URLS?.split(",") || [];
 
@@ -52,10 +53,7 @@ const port = 5000;
 
 //connect mongoose database and check the connection return true or false
 mongoose
-  .connect(process.env.MONGODB_URI as string, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI as string, {})
   .then(() => {
     console.log("Connected to MongoDB");
   })
