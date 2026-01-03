@@ -22,7 +22,7 @@ const Home = () => {
           <LatestDestinationCard key={hotel._id} hotel={hotel} />
         ))}
       </div>
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {bottomRowHotels.map((hotel: any) => (
           <LatestDestinationCard key={hotel._id} hotel={hotel} />
         ))}
