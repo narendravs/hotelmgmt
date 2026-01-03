@@ -15,7 +15,7 @@ const Details = () => {
     return <></>;
   }
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto space-y-6">
       <div>
         <span className="flex">
           {Array.from({ length: hotel.starRating }).map((_, index) => (
@@ -24,7 +24,7 @@ const Details = () => {
         </span>
         <h1 className="text-3xl font-bold">{hotel.name}</h1>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4">
         {hotel.imageUrls.map((image, indx) => (
           <div className="h-[300px]" key={indx}>
             <img
@@ -36,7 +36,7 @@ const Details = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 gap-2">
         {hotel.facilities.map((facility, indx) => (
           <div className="border border-slate-300 rounded-sm p-3" key={indx}>
             {facility}
@@ -44,9 +44,9 @@ const Details = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] ">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr]">
         <div className="whitespace-pre-line">{hotel.description}</div>
-        <div className="h-fit">
+        <div className="h-fit py-5">
           <GuestInfoForm
             pricePerNight={hotel.pricePerNight}
             hotelId={hotel._id}

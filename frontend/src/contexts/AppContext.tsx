@@ -15,13 +15,17 @@ type AppContext = {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   stripePromise: Promise<Stripe | null>;
+  isLoading: boolean;
 };
 const AppContext = React.createContext<AppContext>({
   showToast: () => {},
   isLoggedIn: false,
   setIsLoggedIn: () => {},
   stripePromise: loadStripe(STRIPE_PUB_KEY),
+  isLoading: false,
 });
+
+const stripePromise = loadStripe(STRIPE_PUB_KEY);
 
 export const AppContextProvider = ({
   children,
@@ -30,7 +34,7 @@ export const AppContextProvider = ({
 }) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const stripePromise = loadStripe(STRIPE_PUB_KEY);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const validateToken = async () => {
@@ -44,13 +48,17 @@ export const AppContextProvider = ({
 
         if (response.ok) {
           setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
         }
       } catch (e) {
         setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
       }
     };
     validateToken();
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <AppContext.Provider
@@ -59,6 +67,7 @@ export const AppContextProvider = ({
           setToast(toastMessage);
         },
         isLoggedIn,
+        isLoading,
         setIsLoggedIn,
         stripePromise,
       }}

@@ -68,11 +68,12 @@ const Search = () => {
   };
 
   return (
-    <div className="grid grid-cols-[1fr_3fr_1fr] ">
-      <div className=" h-fit sticky top-0 rounded-lg border border-slate-300  ">
-        <h3 className="text-lg font-semibold border-b border-slate-300 px-5 py-2">
+    <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr] ">
+      <div className="h-full">
+        <h3 className="text-lg font-semibold px-5 py-2">
           Filter by:
         </h3>
+        <div className="h-fit grid grid-cols-2 lg:grid-cols-1 gap-5 lg:sticky md:sticky top-0 rounded-lg border border-slate-300 ">
         <div className="p-5 space-y-5">
           <StarRatingFilter
             selectedStars={selectedStars}
@@ -83,9 +84,23 @@ const Search = () => {
             onChange={handleHotelTypeChange}
           />
         </div>
+
+        <div className="grid h-fit lg:hidden md:hidden">
+        <div className="rounded-lg border border-slate-300 p-5 ">
+          <FacilitiesFilter
+            selectedFacilities={selectedFacilities}
+            onChange={handleFacilityChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
+          />
+        </div>
+      </div>
+      </div>
       </div>
 
-      <div className="grid">
+      <div className="grid ">
         <div className="grid grid-cols-1 gap-5 py-2 p-5 ">
           <div className="flex justify-between items-center z-50">
             <span className="text-xl font-bold">
@@ -119,7 +134,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="grid h-fit sticky top-0">
+      <div className="hidden lg:block grid h-fit sticky top-0">
         <div className="rounded-lg border border-slate-300 p-5 ">
           <FacilitiesFilter
             selectedFacilities={selectedFacilities}

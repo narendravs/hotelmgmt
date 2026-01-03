@@ -13,8 +13,8 @@ const MyHotels = () => {
     return <span>No Hotels found</span>;
   }
   return (
-    <div className="space-y-5">
-      <span className="flex justify-between">
+    <div className="container mx-auto space-y-5">
+      <span className="container flex justify-between">
         <h1>My Hotels</h1>
         <Link
           to="/add-hotel"
@@ -23,7 +23,7 @@ const MyHotels = () => {
           Add Hotel
         </Link>
       </span>
-      <div className="grid grid-cols-1 gap-8 border border-slate-400 p-8 rounded">
+      <div className="container grid grid-cols-1 gap-8 border border-slate-400 p-8 rounded">
         {hotelData.map((hotel, indx) => (
           <div
             className="flex flex-col justify-between border border-slate-400 rounded-lg p-8 gap-5"
@@ -31,7 +31,7 @@ const MyHotels = () => {
           >
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="whitespace-pre-line">{hotel.description}</div>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="container grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 gap-2">
               <div className="border border-slate-300 rounded-sm p-3 flex items-center">
                 <BsMap className="mr-1" />
                 {hotel.city}, {hotel.country}
