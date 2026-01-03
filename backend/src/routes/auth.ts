@@ -15,8 +15,6 @@ router.post(
     }),
   ],
   async (req: Request, res: Response): Promise<any> => {
-    // console.log("Login request received");
-    // console.log("Request body:", req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ message: errors.array() });
@@ -44,8 +42,7 @@ router.post(
 
       res.cookie("auth_cookie", token, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
 
