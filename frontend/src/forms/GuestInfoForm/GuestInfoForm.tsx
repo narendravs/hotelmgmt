@@ -80,7 +80,7 @@ const GuestInfoForm = ({ pricePerNight, hotelId }: Props) => {
   };
 
   return (
-    <div className="flex flex-col bg-blue-200 gap-4 p-4">
+    <div className="container mx-auto flex flex-col bg-blue-200 gap-4 p-4 py-5">
       <h3 className="text=3xl font-bold">${pricePerNight}</h3>
       <form
         onSubmit={
